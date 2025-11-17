@@ -31,12 +31,12 @@ tool({
     return await getNews(params, newsApiKey!);
   });
 
-  // Start the server
+  /* // Start the server
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Opal Tools Service listening on port ${port}`);
     console.log(`Discovery endpoint: http://localhost:${port}/discovery`);
     console.log(`Try calling the tool: POST http://localhost:${port}/tools/hello_world with JSON body: { "name": "Opal" }`);
-});
+}); */
 
 export default app;
