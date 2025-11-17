@@ -1,7 +1,7 @@
 import { ToolsService, tool, ParameterType } from "@optimizely-opal/opal-tools-sdk";
 import express from "express";
 import dotenv from "dotenv";
-import { getNews, type NewsParams } from "../src/services/get-news";
+import { getNews, type NewsParams } from "./get-news.js";
 
 
 dotenv.config();
