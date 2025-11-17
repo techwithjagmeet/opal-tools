@@ -1,7 +1,8 @@
 import { ToolsService, tool, ParameterType } from "@optimizely-opal/opal-tools-sdk";
 import express from "express";
 import dotenv from "dotenv";
-import { getNews, type NewsParams } from "./services/get-news.ts";
+import { getNews, type NewsParams } from "../src/services/get-news.ts";
+
 
 dotenv.config();
 
@@ -31,12 +32,12 @@ tool({
     return await getNews(params, newsApiKey!);
   });
 
-  /* // Start the server
+  // Start the server
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Opal Tools Service listening on port ${port}`);
     console.log(`Discovery endpoint: http://localhost:${port}/discovery`);
-    console.log(`Try calling the tool: POST http://localhost:${port}/tools/hello_world with JSON body: { "name": "Opal" }`);
-}); */
+    console.log(`Try calling the tool: POST http://localhost:${port}/tools/get_news with JSON body: { "query": "technology" }`);
+});
 
 export default app;
