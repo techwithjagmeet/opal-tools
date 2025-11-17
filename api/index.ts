@@ -1,7 +1,7 @@
 import { ToolsService, tool, ParameterType } from "@optimizely-opal/opal-tools-sdk";
 import express from "express";
 import dotenv from "dotenv";
-import { getNews, type NewsParams } from "../src/services/get-news.ts";
+import { getNews, type NewsParams } from "../src/services/get-news";
 
 
 dotenv.config();
@@ -29,7 +29,10 @@ tool({
       },
     ],
   })(async (params:NewsParams) => {
-    return await getNews(params, newsApiKey!);
+    if (!newsApiKey) {
+      throw new Error("NEWS_API_KEY environment variable is not set");
+    }
+    return await getNews(params, newsApiKey);
   });
 
   /* // Start the server
