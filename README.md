@@ -43,6 +43,33 @@ The service will start on `http://localhost:3000` (or the port specified in your
 - **Discovery**: `GET http://localhost:3000/discovery` - Lists all available tools
 - **Tool Execution**: `POST http://localhost:3000/tools/get_news` - Execute the get_news tool
 
+## Authentication
+
+The `get_news` tool requires callers to supply an authenticated News API
+connection via Opal. When Opal invokes your service it includes an `auth`
+object in the request body that contains the provider, scope bundle, and the
+user's credential. This service enforces that the credential is present before
+calling NewsAPI.
+
+For local testing you can mimic the Opal payload by sending both `parameters`
+and `auth` fields in the body:
+
+```json
+{
+  "parameters": { "query": "technology" },
+  "auth": {
+    "provider": "newsapi",
+    "scopeBundle": "articles.read",
+    "credentials": {
+      "access_token": "dummy-token",
+      "customer_id": "local-testing",
+      "instance_id": "local",
+      "product_sku": "newsapi"
+    }
+  }
+}
+```
+
 ## Tool: get_news
 
 Fetches news articles from NewsAPI.
@@ -60,7 +87,19 @@ Fetches news articles from NewsAPI.
 ```bash
 curl -X POST http://localhost:3000/tools/get_news \
   -H "Content-Type: application/json" \
-  -d '{"query": "technology", "pageSize": 10}'
+  -d '{
+        "parameters": { "query": "technology", "pageSize": 10 },
+        "auth": {
+          "provider": "newsapi",
+          "scopeBundle": "articles.read",
+          "credentials": {
+            "access_token": "dummy-token",
+            "customer_id": "local-testing",
+            "instance_id": "local",
+            "product_sku": "newsapi"
+          }
+        }
+      }'
 ```
 
 ## Deployment
